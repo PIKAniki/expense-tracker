@@ -35,7 +35,10 @@ public class ExpenseStorage {
         try {
             List<String> lines = Files.readAllLines(file);
             for (int i = 1; i < lines.size(); i++) {
-                result.add(Expense.fromCsv(lines.get(i)));
+                String line = lines.get(i);
+                if (!line.isBlank()) {
+                    result.add(Expense.fromCsv(line));
+                }
             }
         } catch (IOException e) {
             throw new UncheckedIOException("Cannot read " + file, e);
