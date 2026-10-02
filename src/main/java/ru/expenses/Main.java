@@ -17,6 +17,9 @@ public class Main {
             case "add" -> add(storage, args);
             case "list" -> storage.readAll().forEach(e ->
                     System.out.println(e.date() + "  " + e.amount() + "  " + e.category()));
+            case "total" -> System.out.println("Total: " + storage.readAll().stream()
+                    .map(Expense::amount)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add));
             default -> printUsage();
         }
     }
@@ -39,5 +42,6 @@ public class Main {
         System.out.println("Usage:");
         System.out.println("  add <yyyy-MM-dd> <amount> <category>");
         System.out.println("  list");
+        System.out.println("  total");
     }
 }
