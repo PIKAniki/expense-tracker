@@ -9,3 +9,4 @@
     java -cp target/classes ru.expenses.Main list
 
 Команды: add, list, total.
+Данные хранятся в файле expenses.csv в текущей папке.
