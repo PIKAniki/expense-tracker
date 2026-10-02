@@ -41,7 +41,7 @@ public class ExpenseStorage {
                 }
             }
         } catch (IOException e) {
-            throw new UncheckedIOException("Cannot read " + file, e);
+            throw new UncheckedIOException("Failed to read file " + file, e);
         }
         return result;
     }
