@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ExpenseStorage {
 
-    private static final String HEADER = "date,sum,category";
+    private static final String HEADER = "date,sum,type";
 
     private final Path file;
 
