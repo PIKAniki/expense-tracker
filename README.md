@@ -1,2 +1,9 @@
 # expense-tracker
-Консольное приложение для учёта личных расходов
+
+Консольное приложение для учёта личных расходов. Данные хранятся в файле `expenses.csv`.
+
+## Сборка и запуск
+
+    mvn -q package
+    java -cp target/classes ru.expenses.Main add 2026-09-01 350.50 food
+    java -cp target/classes ru.expenses.Main list
