@@ -39,7 +39,7 @@ public class Main {
     }
 
     private static void printUsage() {
-        System.out.println("Usage:");
+        System.out.println("Usage: expense-tracker <command>");
         System.out.println("  add <yyyy-MM-dd> <amount> <category>");
         System.out.println("  list");
         System.out.println("  total");
