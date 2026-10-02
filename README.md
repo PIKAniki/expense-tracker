@@ -7,3 +7,5 @@
     mvn -q package
     java -cp target/classes ru.expenses.Main add 2026-09-01 350.50 food
     java -cp target/classes ru.expenses.Main list
+
+Команды: add, list, total.
