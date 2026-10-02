@@ -10,6 +10,8 @@ import java.util.List;
 
 public class ExpenseStorage {
 
+    private static final String HEADER = "date,amount,category";
+
     private final Path file;
 
     public ExpenseStorage(Path file) {
@@ -19,7 +21,7 @@ public class ExpenseStorage {
     public void append(Expense expense) {
         try {
             if (Files.notExists(file)) {
-                Files.writeString(file, "date,amount,category" + System.lineSeparator());
+                Files.writeString(file, HEADER + System.lineSeparator());
             }
             Files.writeString(file, expense.toCsv() + System.lineSeparator(), StandardOpenOption.APPEND);
         } catch (IOException e) {
