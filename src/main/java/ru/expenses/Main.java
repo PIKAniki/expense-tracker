@@ -5,6 +5,10 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Точка входа консольного приложения.
+ * Путь к файлу с данными можно переопределить свойством {@code expenses.file}.
+ */
 public class Main {
 
     public static void main(String[] args) {
@@ -12,7 +16,7 @@ public class Main {
             printUsage();
             return;
         }
-        ExpenseStorage storage = new ExpenseStorage(Path.of("expenses.csv"));
+        ExpenseStorage storage = new ExpenseStorage(Path.of(System.getProperty("expenses.file", "expenses.csv")));
         switch (args[0]) {
             case "add" -> add(storage, args);
             case "list" -> storage.readAll().forEach(e ->
