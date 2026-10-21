@@ -59,7 +59,7 @@ jobs:
       - name: Generate Javadoc
         run: mvn -B javadoc:javadoc
 
-      - uses: actions/upload-pages-artifact@v5
+      - uses: actions/upload-pages-artifact@v4
         with:
           path: target/reports/apidocs
 
