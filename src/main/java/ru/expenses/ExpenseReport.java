@@ -1,6 +1,7 @@
 package ru.expenses;
 
 import java.math.BigDecimal;
+import java.time.YearMonth;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -17,5 +18,13 @@ public class ExpenseReport {
             totals.merge(e.category(), e.amount(), BigDecimal::add);
         }
         return totals;
+    }
+
+    /** Сумма всех расходов за указанный месяц. */
+    public static BigDecimal totalForMonth(List<Expense> expenses, YearMonth month) {
+        return expenses.stream()
+                .filter(e -> YearMonth.from(e.date()).equals(month))
+                .map(Expense::amount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

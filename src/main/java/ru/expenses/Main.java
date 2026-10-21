@@ -3,6 +3,7 @@ package ru.expenses;
 import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.time.format.DateTimeParseException;
 
 /**
@@ -24,6 +25,7 @@ public class Main {
             case "total" -> System.out.println("Total: " + storage.readAll().stream()
                     .map(Expense::amount)
                     .reduce(BigDecimal.ZERO, BigDecimal::add));
+            case "month" -> month(storage, args);
             default -> printUsage();
         }
     }
@@ -34,11 +36,24 @@ public class Main {
             return;
         }
         try {
-            Expense expense = new Expense(LocalDate.parse(args[1]), new BigDecimal(args[2]), args[3]);
+            Expense expense = new Expense(LocalDate.parse(args[1]), new BigDecimal(args[2].replace(',', '.')), args[3]);
             storage.append(expense);
             System.out.println("Added: " + expense.toCsv());
         } catch (DateTimeParseException | NumberFormatException e) {
             System.err.println("Invalid date or amount");
+        }
+    }
+
+    private static void month(ExpenseStorage storage, String[] args) {
+        if (args.length != 2) {
+            printUsage();
+            return;
+        }
+        try {
+            YearMonth month = YearMonth.parse(args[1]);
+            System.out.println("Total for " + month + ": " + ExpenseReport.totalForMonth(storage.readAll(), month));
+        } catch (DateTimeParseException e) {
+            System.err.println("Invalid month, expected yyyy-MM");
         }
     }
 
@@ -47,5 +62,6 @@ public class Main {
         System.out.println("  add <yyyy-MM-dd> <amount> <category>");
         System.out.println("  list");
         System.out.println("  total");
+        System.out.println("  month <yyyy-MM>");
     }
 }

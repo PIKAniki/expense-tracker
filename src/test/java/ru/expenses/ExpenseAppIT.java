@@ -53,6 +53,20 @@ class ExpenseAppIT {
     }
 
     @Test
+    void monthCommandPrintsTotalForThatMonth() {
+        run("add", "2026-08-31", "500", "food");
+        run("add", "2026-09-01", "350.50", "food");
+        run("add", "2026-09-03", "1200", "transport");
+
+        assertEquals("Total for 2026-09: 1550.50", run("month", "2026-09"));
+    }
+
+    @Test
+    void acceptsCommaAsDecimalSeparator() {
+        assertEquals("Added: 2026-09-05,99.90,cafe", run("add", "2026-09-05", "99,90", "cafe"));
+    }
+
+    @Test
     void printsUsageForUnknownCommand() {
         assertTrue(run("remove").startsWith("Usage:"));
     }
