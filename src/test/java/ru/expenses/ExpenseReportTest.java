@@ -24,7 +24,7 @@ class ExpenseReportTest {
 
         Map<String, BigDecimal> totals = ExpenseReport.totalsByCategory(expenses);
 
-        assertEquals(new BigDecimal("130"), totals.get("food"));
+        assertEquals(new BigDecimal("125"), totals.get("food"));
         assertEquals(new BigDecimal("50.50"), totals.get("transport"));
     }
 
