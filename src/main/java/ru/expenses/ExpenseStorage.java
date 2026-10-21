@@ -8,6 +8,9 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Хранит расходы в CSV-файле. Первая строка файла — заголовок.
+ */
 public class ExpenseStorage {
 
     private static final String HEADER = "date,sum,type";
@@ -18,6 +21,7 @@ public class ExpenseStorage {
         this.file = file;
     }
 
+    /** Дописывает расход в конец файла; если файла нет, создаёт его с заголовком. */
     public void append(Expense expense) {
         try {
             if (Files.notExists(file)) {
@@ -29,6 +33,7 @@ public class ExpenseStorage {
         }
     }
 
+    /** Читает все расходы из файла. Пустые строки пропускаются, отсутствующий файл даёт пустой список. */
     public List<Expense> readAll() {
         List<Expense> result = new ArrayList<>();
         if (Files.notExists(file)) {
