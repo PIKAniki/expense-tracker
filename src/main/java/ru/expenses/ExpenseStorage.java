@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Хранит расходы в CSV-файле. Первая строка файла — заголовок.
+ * Хранит расходы в CSV-файле. Первая строка файла — заголовок {@code date,sum,type},
+ * дальше по одной записи в строке в формате {@link Expense#toCsv()}.
+ * Файл создаётся при первой записи.
  */
 public class ExpenseStorage {
 
