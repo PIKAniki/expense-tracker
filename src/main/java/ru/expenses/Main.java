@@ -3,6 +3,7 @@ package ru.expenses;
 import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.time.format.DateTimeParseException;
 
 /**
@@ -24,6 +25,7 @@ public class Main {
             case "total" -> System.out.println("Total: " + storage.readAll().stream()
                     .map(Expense::amount)
                     .reduce(BigDecimal.ZERO, BigDecimal::add));
+            case "month" -> month(storage, args);
             default -> printUsage();
         }
     }
@@ -42,10 +44,24 @@ public class Main {
         }
     }
 
+    private static void month(ExpenseStorage storage, String[] args) {
+        if (args.length != 2) {
+            printUsage();
+            return;
+        }
+        try {
+            YearMonth month = YearMonth.parse(args[1]);
+            System.out.println("Total for " + month + ": " + ExpenseReport.totalForMonth(storage.readAll(), month));
+        } catch (DateTimeParseException e) {
+            System.err.println("Invalid month, expected yyyy-MM");
+        }
+    }
+
     private static void printUsage() {
         System.out.println("Usage: expense-tracker <command>");
         System.out.println("  add <yyyy-MM-dd> <amount> <category>");
         System.out.println("  list");
         System.out.println("  total");
+        System.out.println("  month <yyyy-MM>");
     }
 }
