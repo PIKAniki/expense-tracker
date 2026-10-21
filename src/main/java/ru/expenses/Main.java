@@ -34,7 +34,7 @@ public class Main {
             return;
         }
         try {
-            Expense expense = new Expense(LocalDate.parse(args[1]), new BigDecimal(args[2]), args[3]);
+            Expense expense = new Expense(LocalDate.parse(args[1]), new BigDecimal(args[2].replace(',', '.')), args[3]);
             storage.append(expense);
             System.out.println("Added: " + expense.toCsv());
         } catch (DateTimeParseException | NumberFormatException e) {

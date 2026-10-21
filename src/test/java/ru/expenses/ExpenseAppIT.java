@@ -53,6 +53,11 @@ class ExpenseAppIT {
     }
 
     @Test
+    void acceptsCommaAsDecimalSeparator() {
+        assertEquals("Added: 2026-09-05,99.90,cafe", run("add", "2026-09-05", "99,90", "cafe"));
+    }
+
+    @Test
     void printsUsageForUnknownCommand() {
         assertTrue(run("remove").startsWith("Usage:"));
     }
