@@ -6,7 +6,7 @@
 
     <groupId>ru.expenses</groupId>
     <artifactId>expense-tracker</artifactId>
-    <version>0.3.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>expense-tracker</name>

@@ -67,6 +67,14 @@ class ExpenseAppIT {
     }
 
     @Test
+    void doesNotSaveNonPositiveAmount() {
+        run("add", "2026-09-05", "-150", "food");
+        run("add", "2026-09-05", "0", "food");
+
+        assertEquals("", run("list"));
+    }
+
+    @Test
     void printsUsageForUnknownCommand() {
         assertTrue(run("remove").startsWith("Usage:"));
     }

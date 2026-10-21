@@ -36,7 +36,12 @@ public class Main {
             return;
         }
         try {
-            Expense expense = new Expense(LocalDate.parse(args[1]), new BigDecimal(args[2].replace(',', '.')), args[3]);
+            BigDecimal amount = new BigDecimal(args[2].replace(',', '.'));
+            if (amount.signum() <= 0) {
+                System.err.println("Amount must be positive");
+                return;
+            }
+            Expense expense = new Expense(LocalDate.parse(args[1]), amount, args[3]);
             storage.append(expense);
             System.out.println("Added: " + expense.toCsv());
         } catch (DateTimeParseException | NumberFormatException e) {

@@ -5,8 +5,10 @@
 ## Сборка и запуск
 
     mvn -q package
-    java -cp target/classes ru.expenses.Main add 2026-09-01 350.50 food
-    java -cp target/classes ru.expenses.Main list
+    java -jar target/expense-tracker-1.0.0.jar add 2026-09-01 350.50 food
+    java -jar target/expense-tracker-1.0.0.jar list
+
+Готовый jar можно скачать со страницы Releases.
 
 Команды: add, list, total, month <yyyy-MM> (сумма за месяц). Сумму можно вводить через точку или запятую.
 Данные хранятся в файле expenses.csv в текущей папке.
