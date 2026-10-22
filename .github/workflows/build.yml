@@ -1,0 +1,37 @@
+name: Build
+
+# push – только в долгоживущие ветки: проверяется их фактическое состояние.
+# pull_request – проверка результата слияния до того, как изменения попадут в ветку.
+# Коммиты в остальных ветках проверяются через pull request, поэтому дважды не запускаются.
+on:
+  push:
+    branches: [main, development, 'release/**']
+  pull_request:
+    branches: [main, development]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+
+      - name: Build and run tests
+        run: mvn -B verify
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-reports
+          path: |
+            target/surefire-reports
+            target/failsafe-reports
+            target/site/jacoco

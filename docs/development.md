@@ -14,13 +14,17 @@
 
 ## CI/CD
 
-Workflow `.github/workflows/main.yml` (GitHub Actions) состоит из трёх задач:
+CI/CD построен на GitHub Actions и состоит из трёх workflow в `.github/workflows`:
 
-- `build` – запускается на каждый push в любую ветку и на каждый pull request в `main`: `mvn -B verify`, отчёты тестов сохраняются как артефакт `test-reports`;
-- `docs` – после push в `main` генерирует Javadoc и публикует его на [GitHub Pages](https://pikaniki.github.io/expense-tracker/);
-- `release` – после push тега `v*` собирает jar и создаёт GitHub Release.
+| Файл | Когда запускается | Что делает |
+|------|-------------------|------------|
+| `build.yml` | push в `main`, `development`, `release/**`; pull request в `main` и `development`; вручную | `mvn -B verify`: сборка, unit- и интеграционные тесты, отчёт JaCoCo; отчёты сохраняются как артефакт `test-reports` |
+| `docs.yml` | после успешного `Build` на ветке `main`; вручную | генерирует Javadoc и публикует его на [GitHub Pages](https://pikaniki.github.io/expense-tracker/) |
+| `release.yml` | push тега `v*` | ещё раз прогоняет тесты, собирает jar и создаёт GitHub Release |
 
-Pull request в `main` сливается автоматически (auto-merge), когда проходит `build`.
+Почему push проверяется не во всех ветках. Долгоживущие ветки (`main`, `development`, `release/**`) проверяются на каждый push – это их фактическое состояние. Изменения в остальных ветках попадают в долгоживущие только через pull request, а pull request проверяется отдельно (на результат слияния), поэтому push в такие ветки CI не запускает – иначе каждый коммит проверялся бы дважды.
+
+Pull request в `main` сливается автоматически (auto-merge), когда проходит проверка `build`. Прямой push в `main` запрещён правилом репозитория.
 
 ## Выпуск версии
 
@@ -31,4 +35,4 @@ Pull request в `main` сливается автоматически (auto-merge
         git tag -a vX.Y.Z -m "Release X.Y.Z"
         git push origin vX.Y.Z
 
-4. Задача `release` создаст релиз с jar. Затем поднять версию в `main` до следующей `-SNAPSHOT`.
+4. Workflow `release.yml` создаст релиз с jar. Затем поднять версию в `main` до следующей `-SNAPSHOT`.
