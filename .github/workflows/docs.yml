@@ -1,6 +1,5 @@
 name: Docs
 
-# Документация публикуется только после успешной сборки ветки main.
 on:
   workflow_run:
     workflows: [Build]
