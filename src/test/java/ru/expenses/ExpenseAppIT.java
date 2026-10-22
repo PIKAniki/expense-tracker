@@ -62,6 +62,15 @@ class ExpenseAppIT {
     }
 
     @Test
+    void reportCommandPrintsTotalsByCategory() {
+        run("add", "2026-09-01", "100", "food");
+        run("add", "2026-09-02", "40", "cafe");
+        run("add", "2026-09-03", "25.50", "food");
+
+        assertEquals("cafe: 40" + System.lineSeparator() + "food: 125.50", run("report"));
+    }
+
+    @Test
     void acceptsCommaAsDecimalSeparator() {
         assertEquals("Added: 2026-09-05,99.90,cafe", run("add", "2026-09-05", "99,90", "cafe"));
     }
