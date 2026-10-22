@@ -26,6 +26,8 @@ public class Main {
                     .map(Expense::amount)
                     .reduce(BigDecimal.ZERO, BigDecimal::add));
             case "month" -> month(storage, args);
+            case "report" -> ExpenseReport.totalsByCategory(storage.readAll())
+                    .forEach((category, total) -> System.out.println(category + ": " + total));
             default -> printUsage();
         }
     }
@@ -68,5 +70,6 @@ public class Main {
         System.out.println("  list");
         System.out.println("  total");
         System.out.println("  month <yyyy-MM>");
+        System.out.println("  report");
     }
 }
