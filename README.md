@@ -1,6 +1,6 @@
 # expense-tracker
 
-[![CI](https://github.com/PIKAniki/expense-tracker/actions/workflows/main.yml/badge.svg)](https://github.com/PIKAniki/expense-tracker/actions/workflows/main.yml)
+[![Build](https://github.com/PIKAniki/expense-tracker/actions/workflows/build.yml/badge.svg)](https://github.com/PIKAniki/expense-tracker/actions/workflows/build.yml)
 
 Консольное приложение для учёта личных расходов. Данные хранятся в файле `expenses.csv`.
 
